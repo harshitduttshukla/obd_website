@@ -31,6 +31,28 @@ const BRANDS = [
   { name: "Ford", logo: "https://www.carlogos.org/car-logos/ford-logo.png" },
 ];
 
+const GooglePlayButton = ({ className = "" }: { className?: string }) => (
+  <motion.a
+    href="https://play.google.com/store/apps/details?id=com.obdsmart.obdsmart"
+    target="_blank"
+    rel="noopener noreferrer"
+    whileHover={{ scale: 1.02, y: -2 }}
+    whileTap={{ scale: 0.98 }}
+    className={`bg-black flex items-center gap-3 px-8 py-3.5 rounded-[14px] shadow-premium hover:shadow-premium-xl transition-shadow ${className}`}
+  >
+    <svg viewBox="0 0 24 24" className="w-8 h-8 flex-shrink-0" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M4.09 2.5C3.82 2.77 3.66 3.19 3.66 3.73V20.27C3.66 20.81 3.82 21.23 4.09 21.5L4.16 21.57L12.56 13.17V12.98V12.83L4.16 2.43L4.09 2.5Z" fill="#00E5FF"/>
+      <path d="M15.35 15.96L12.56 13.17V12.83L15.35 10.04L15.42 10.08L18.73 11.96C19.67 12.49 19.67 13.37 18.73 13.91L15.42 15.79L15.35 15.96Z" fill="#FBC02D"/>
+      <path d="M15.42 15.79L12.56 12.93L4.09 21.5C4.4 21.82 4.9 21.85 5.48 21.52L15.42 15.79Z" fill="#FF3D00"/>
+      <path d="M15.42 10.11L5.48 4.47C4.9 4.14 4.4 4.17 4.09 4.49L12.56 12.96L15.42 10.11Z" fill="#4CAF50"/>
+    </svg>
+    <div className="flex flex-col items-start leading-tight">
+      <span className="text-[10px] font-semibold text-white/70 uppercase tracking-widest -mb-0.5">Get it on</span>
+      <span className="text-xl font-bold text-white tracking-tight">Google Play</span>
+    </div>
+  </motion.a>
+);
+
 export default function Home() {
   return (
     <div className="relative min-h-screen selection:bg-brand-primary/10 selection:text-brand-primary overflow-x-hidden bg-white">
@@ -39,7 +61,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3 group cursor-pointer">
             <div className="relative w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center border border-slate-100 group-hover:border-brand-primary/30 transition-all">
-              <Image src="/logo.png" alt="OBD logo" fill className="p-2 object-contain" />
+              <Image src="/logo.png" alt="OBD logo" fill className="rounded-xl object-contain" />
             </div>
             <div className="flex flex-col">
               <span className="text-lg font-bold tracking-tight text-slate-900 leading-none">OBD<span className="text-brand-primary italic">SMART</span></span>
@@ -86,14 +108,7 @@ export default function Home() {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 items-center">
-                <a 
-                  href="https://play.google.com/store/apps/details?id=com.obdsmart.obdsmart" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="btn-primary px-10 py-4 flex items-center justify-center gap-3 w-full sm:w-auto"
-                >
-                  <Image src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play" width={140} height={42} className="h-6 w-auto brightness-[10]" />
-                </a>
+                <GooglePlayButton className="w-full sm:w-auto" />
               </div>
             </motion.div>
             
@@ -114,7 +129,7 @@ export default function Home() {
                 <motion.div 
                   animate={{ y: [0, 15, 0] }}
                   transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                  className="bg-white p-1.5 rounded-[2.5rem] shadow-premium-xl border border-slate-100 overflow-hidden mt-12 rotate-2"
+                  className="bg-white p-1.5 rounded-[2.5rem] shadow-premium-xl border border-slate-100 overflow-hidden rotate-2"
                 >
                   <Image src="/app_real_2.png" alt="App UI Features" width={400} height={800} className="rounded-[2.2rem]" />
                 </motion.div>
@@ -129,19 +144,42 @@ export default function Home() {
 
 
       {/* Trust Bar / Logos */}
-      <section id="compatibility" className="py-24 bg-white">
+      <section id="compatibility" className="py-32 bg-white relative">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-linear-to-r from-transparent via-slate-100 to-transparent" />
+        
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col items-center gap-12">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.4em]">Integrated with automotive leaders</span>
-            <div className="flex flex-wrap justify-center gap-12 md:gap-24 opacity-30">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="flex flex-col items-center gap-16"
+          >
+            <h2 className="text-sm font-extrabold text-slate-900 uppercase tracking-[0.4em] text-center">
+              Integrated with automotive leaders
+            </h2>
+            
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 w-full max-w-5xl">
                {BRANDS.map((brand, i) => (
-                 <div key={i} className="group relative">
-                    <Image src={brand.logo} alt={brand.name} width={50} height={50} className="h-7 w-auto object-contain transition-all group-hover:opacity-100 group-hover:scale-110" />
-                 </div>
+                 <motion.div 
+                   key={i}
+                   whileHover={{ y: -5, scale: 1.05 }}
+                   className="group relative h-24 bg-slate-50/50 rounded-2xl border border-slate-100/50 flex items-center justify-center p-6 transition-all hover:bg-white hover:shadow-premium hover:border-slate-200"
+                 >
+                    <Image 
+                      src={brand.logo} 
+                      alt={brand.name} 
+                      width={60} 
+                      height={60} 
+                      className="h-8 w-auto object-contain transition-all grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100" 
+                    />
+                 </motion.div>
                ))}
             </div>
-          </div>
+          </motion.div>
         </div>
+        
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-linear-to-r from-transparent via-slate-100 to-transparent" />
       </section>
 
       {/* Features Bento Grid */}
@@ -231,14 +269,7 @@ export default function Home() {
                   Join over 500,000 car enthusiasts worldwide. Compatible with all standard ELM327 adapters.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-4">
-                  <a 
-                    href="https://play.google.com/store/apps/details?id=com.obdsmart.obdsmart" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="btn-primary px-12 py-5 flex items-center gap-3 w-full sm:w-auto justify-center"
-                  >
-                    <Image src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play" width={180} height={54} className="h-7 w-auto brightness-[10]" />
-                  </a>
+                  <GooglePlayButton className="w-full sm:w-auto px-10" />
                   <div className="flex items-center gap-2.5 text-slate-400 font-bold uppercase tracking-widest text-[10px]">
                     <CircleCheck className="text-teal-500 w-4 h-4" />
                     Free basic version available

@@ -363,7 +363,7 @@ export default function SupportedCarsPage() {
                    <div className="p-12 bg-red-50 rounded-[2.5rem] border border-red-100 text-center space-y-4">
                       <AlertCircle className="w-12 h-12 text-red-500 mx-auto" />
                       <p className="text-red-700 font-bold">{error}</p>
-                      <button onClick={() => currentStep === "model" ? handleMakeSelect(selectedMake) : handleModelSelect(selectedModel)} className="btn-primary">Try Again</button>
+                      <button onClick={() => currentStep === "model" ? handleMakeSelect(selectedMake) : handleModelSelect({ name: selectedModel })} className="btn-primary">Try Again</button>
                    </div>
                 ) : (
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

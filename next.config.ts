@@ -5,6 +5,10 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
+        hostname: "vl.imgix.net",
+      },
+      {
+        protocol: "https",
         hostname: "www.carlogos.org",
       },
     ],

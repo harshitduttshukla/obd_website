@@ -1,7 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import Link from "next/link";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
   Activity, 
   Shield, 
@@ -10,6 +12,7 @@ import {
   BarChart3, 
   Settings, 
   ChevronRight, 
+  ChevronDown,
   Globe,
   CheckCircle2,
   Cpu,
@@ -29,6 +32,29 @@ const BRANDS = [
   { name: "Mercedes", logo: "https://www.carlogos.org/car-logos/mercedes-benz-logo.png" },
   { name: "Toyota", logo: "https://www.carlogos.org/car-logos/toyota-logo.png" },
   { name: "Ford", logo: "https://www.carlogos.org/car-logos/ford-logo.png" },
+];
+
+const FAQ_ITEMS = [
+  {
+    question: "How does OBDSmart work?",
+    answer: "OBDSmart connects to your vehicle through an OBD2 Bluetooth adapter and gives you access to advanced vehicle diagnostics directly from your Android device. Simply plug the adapter into your vehicle’s OBD2 port, connect it to the OBDSmart App via Bluetooth, and start scanning.\n\nYou can read and clear fault codes, view live data from multiple systems, perform special functions, and generate detailed PDF scan reports. Feature availability depends on your vehicle’s make, model, and year."
+  },
+  {
+    question: "How do I connect my vehicle to OBDSmart?",
+    answer: "Connecting your vehicle to OBDSmart is simple:\n\n1. Plug a compatible ELM-chip-based Bluetooth OBD2 adapter into your vehicle’s OBD2 port.\n2. Turn the vehicle ignition ON.\n3. Enable Bluetooth on your Android device.\n4. Open the OBDSmart App and connect to the adapter.\n5. Start scanning your vehicle and access diagnostics, live data, special functions, and reports.\n\nFor the best experience and stable communication, we recommend using good-quality ELM-based adapters and avoiding very cheap knockoff devices."
+  },
+  {
+    question: "What features are supported by OBDSmart?",
+    answer: "OBDSmart offers a wide range of diagnostic and maintenance features across supported vehicles. Key features include:\n\n• Reading and clearing diagnostic trouble codes (DTCs)\n• Support for both generic and manufacturer-specific fault codes\n• Detailed fault code descriptions\n• Live data monitoring from multiple vehicle systems\n• Professional PDF diagnostic scan reports\n• Fault descriptions in multiple Indian languages\n• Special functions like Service Reset, Injector Coding, DPF Regeneration, Brake Bleeding, and many more\n\nAvailable features may vary depending on the vehicle’s make, model, year, and ECU support."
+  },
+  {
+    question: "Which makes are supported by OBDSmart?",
+    answer: "OBDSmart supports most major Indian and global vehicle manufacturers across multiple segments. Feature availability depends on the vehicle’s make, model, year, and ECU support.\n\nTo check the exact coverage and supported features for a specific vehicle, use the “Check Compatibility” feature available on our website or inside the OBDSmart App. OBDSmart is continuously updated to improve compatibility and add support for newer vehicles and functions."
+  },
+  {
+    question: "Can I use OBDSmart for free?",
+    answer: "Yes. OBDSmart offers free access to scanning and fault code clearing features for the first 7 days after activation. During the free period, you can connect your vehicle, scan various systems, read and clear diagnostic trouble codes, and explore core diagnostic capabilities of the app.\n\nAfter the trial period, OBDSmart offers three subscription plans: Basic, Standard, and Advanced. Each plan provides access to different levels of diagnostics, live data, special functions, and advanced vehicle features depending on your requirements."
+  }
 ];
 
 const GooglePlayButton = ({ className = "" }: { className?: string }) => (
@@ -53,6 +79,61 @@ const GooglePlayButton = ({ className = "" }: { className?: string }) => (
   </motion.a>
 );
 
+const FAQItem = ({ question, answer, isOpen, onClick }: { question: string, answer: string, isOpen: boolean, onClick: () => void }) => {
+  return (
+    <div className="border-b border-slate-100 last:border-0">
+      <button
+        onClick={onClick}
+        className="w-full py-6 flex items-center justify-between gap-4 text-left group"
+      >
+        <span className={`text-lg font-bold transition-colors ${isOpen ? 'text-brand-primary' : 'text-slate-900 group-hover:text-brand-primary'}`}>
+          {question}
+        </span>
+        <motion.div
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+          className={`p-2 rounded-lg transition-colors ${isOpen ? 'bg-teal-50 text-brand-primary' : 'bg-slate-50 text-slate-400 group-hover:bg-teal-50 group-hover:text-brand-primary'}`}
+        >
+          <ChevronDown className="w-5 h-5" />
+        </motion.div>
+      </button>
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="overflow-hidden"
+          >
+            <div className="pb-6 text-slate-500 font-medium leading-relaxed whitespace-pre-line">
+              {answer}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+const FAQAccordion = () => {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  return (
+    <>
+      {FAQ_ITEMS.map((item, index) => (
+        <FAQItem
+          key={index}
+          question={item.question}
+          answer={item.answer}
+          isOpen={openIndex === index}
+          onClick={() => setOpenIndex(openIndex === index ? null : index)}
+        />
+      ))}
+    </>
+  );
+};
+
 export default function Home() {
   return (
     <div className="relative min-h-screen selection:bg-brand-primary/10 selection:text-brand-primary overflow-x-hidden bg-white">
@@ -61,7 +142,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3 group cursor-pointer">
             <div className="relative w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center border border-slate-100 group-hover:border-brand-primary/30 transition-all">
-              <Image src="/logo.png" alt="OBD logo" fill className="rounded-xl object-contain" />
+              <Image src="/logo.png" alt="OBD logo" fill sizes="40px" className="rounded-xl object-contain" />
             </div>
             <div className="flex flex-col">
               <span className="text-lg font-bold tracking-tight text-slate-900 leading-none">OBD<span className="text-brand-primary italic">SMART</span></span>
@@ -70,16 +151,17 @@ export default function Home() {
           </div>
           
           <div className="hidden lg:flex items-center gap-8 text-slate-500 text-sm font-medium">
-            <a href="#compatibility" className="hover:text-slate-900 transition-colors">Compatibility</a>
+            <Link href="/supported-cars" className="hover:text-slate-900 transition-colors">Compatibility</Link>
             <a href="#features" className="hover:text-slate-900 transition-colors">Features</a>
+            <a href="#faq" className="hover:text-slate-900 transition-colors">FAQ</a>
             <a href="#reviews" className="hover:text-slate-900 transition-colors">Reviews</a>
           </div>
 
           <div className="flex items-center gap-4">
-            <button className="btn-ghost hidden sm:block">Sign in</button>
-            <button className="btn-primary px-8">
+            <Link href="/login" className="btn-ghost hidden sm:block">Sign in</Link>
+            <Link href="/signup" className="btn-primary px-8">
               Get Started
-            </button>
+            </Link>
           </div>
         </div>
       </nav>
@@ -202,10 +284,10 @@ export default function Home() {
               <h3 className="text-3xl font-bold mb-4 text-slate-900">Advanced Diagnostics</h3>
               <p className="text-slate-500 text-lg leading-relaxed font-medium">Read and clear fault codes (ECUs) across all systems. Stop guessing and start fixing.</p>
               <div className="mt-8">
-                <button className="btn-secondary group flex items-center gap-2 text-sm text-brand-primary border-brand-primary/20 hover:border-brand-primary/50">
+                <Link href="/supported-cars" className="btn-secondary group flex items-center gap-2 text-sm text-brand-primary border-brand-primary/20 hover:border-brand-primary/50">
                   Explore Diagnostics 
                   <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </button>
+                </Link>
               </div>
             </motion.div>
 
@@ -255,6 +337,22 @@ export default function Home() {
         </div>
       </section>
 
+
+      {/* FAQ Section */}
+      <section id="faq" className="py-32 bg-slate-50/30">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="flex flex-col items-center text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 text-slate-900 uppercase">Frequently Asked Questions</h2>
+            <p className="text-slate-500 text-lg max-w-2xl font-medium">
+              Everything you need to know about OBDSmart and how it helps you take care of your vehicle.
+            </p>
+          </div>
+
+          <div className="glass-card rounded-[2.5rem] p-8 md:p-12">
+            <FAQAccordion />
+          </div>
+        </div>
+      </section>
 
       {/* Final CTA Block */}
       <section className="py-24 px-6 bg-white">

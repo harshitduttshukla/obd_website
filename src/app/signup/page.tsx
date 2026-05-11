@@ -172,7 +172,7 @@ export default function SignupPage() {
         </div>
 
         <p className="mt-8 text-center text-[10px] text-slate-400 leading-relaxed max-w-xs mx-auto font-medium">
-          By creating an account, you agree to our <Link href="#" className="underline">Terms of Service</Link> and <Link href="#" className="underline">Privacy Policy</Link>.
+          By creating an account, you agree to our <Link href="/terms-and-conditions" className="underline">Terms of Service</Link> and <Link href="/privacy-policy" className="underline">Privacy Policy</Link>.
         </p>
       </motion.div>
     </div>

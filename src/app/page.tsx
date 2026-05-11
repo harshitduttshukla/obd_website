@@ -406,7 +406,7 @@ export default function Home() {
               <h4 className="text-slate-900 font-bold uppercase tracking-widest text-[10px]">Product</h4>
               <ul className="space-y-4 text-slate-400 text-sm font-medium">
                 <li><a href="#" className="hover:text-slate-900 transition-colors">App Features</a></li>
-                <li><a href="#" className="hover:text-slate-900 transition-colors">Compatibility</a></li>
+                <li><Link href="/supported-cars" className="hover:text-slate-900 transition-colors">Compatibility</Link></li>
                 <li><a href="#" className="hover:text-slate-900 transition-colors">Pricing</a></li>
               </ul>
             </div>
@@ -415,8 +415,8 @@ export default function Home() {
               <h4 className="text-slate-900 font-bold uppercase tracking-widest text-[10px]">Company</h4>
               <ul className="space-y-4 text-slate-400 text-sm font-medium">
                 <li><a href="#" className="hover:text-slate-900 transition-colors">About Us</a></li>
-                <li><a href="#" className="hover:text-slate-900 transition-colors">Help Center</a></li>
-                <li><a href="#" className="hover:text-slate-900 transition-colors">Privacy Policy</a></li>
+                <li><Link href="/terms-and-conditions" className="hover:text-slate-900 transition-colors">Terms & Conditions</Link></li>
+                <li><Link href="/privacy-policy" className="hover:text-slate-900 transition-colors">Privacy Policy</Link></li>
               </ul>
             </div>
           </div>

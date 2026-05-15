@@ -224,7 +224,7 @@ export default function PrivacyPolicyPage() {
                 <div className="absolute top-0 right-0 w-1/2 h-full bg-teal-500/10 blur-[80px] pointer-events-none" />
                 <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
                   <div className="space-y-6">
-                    <h2 className="text-3xl font-bold tracking-tight">11. Contact Us</h2>
+                    <h2 className="text-3xl font-bold tracking-tight">Contact Us</h2>
                     <div className="space-y-4">
                       <div className="flex items-start gap-4">
                         <MapPin className="w-5 h-5 text-teal-400 mt-1 shrink-0" />

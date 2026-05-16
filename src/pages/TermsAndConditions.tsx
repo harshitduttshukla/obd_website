@@ -1,19 +1,16 @@
-"use client";
-
-import Link from "next/link";
-import Image from "next/image";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ChevronLeft, FileText, Clock, Mail, MapPin, Phone, AlertTriangle, RefreshCw, Truck, ShieldAlert } from "lucide-react";
 
-export default function TermsAndConditionsPage() {
+export default function TermsAndConditions() {
   return (
     <div className="min-h-screen bg-white selection:bg-brand-primary/10 selection:text-brand-primary">
       {/* Navbar */}
       <nav className="fixed top-0 w-full z-50 glass border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 group">
+          <Link to="/" className="flex items-center gap-3 group">
             <div className="relative w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center border border-slate-100 group-hover:border-brand-primary/30 transition-all shadow-sm">
-              <Image src="/logo.png" alt="OBD logo" fill sizes="40px" className="p-2 object-contain" />
+              <img src="/logo.png" alt="OBD logo" className="p-2 object-contain w-full h-full rounded-xl" />
             </div>
             <div className="flex flex-col">
               <span className="text-lg font-bold tracking-tight text-slate-900 leading-none">OBD<span className="text-brand-primary italic">SMART</span></span>
@@ -21,7 +18,7 @@ export default function TermsAndConditionsPage() {
             </div>
           </Link>
           
-          <Link href="/" className="flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-slate-900 transition-colors uppercase tracking-widest">
+          <Link to="/" className="flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-slate-900 transition-colors uppercase tracking-widest">
             <ChevronLeft className="w-4 h-4" /> Back to Home
           </Link>
         </div>
@@ -198,14 +195,14 @@ export default function TermsAndConditionsPage() {
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-3">
              <div className="relative w-8 h-8 bg-slate-50 rounded-lg flex items-center justify-center border border-slate-100">
-                <Image src="/logo.png" alt="OBD logo" fill className="p-1.5 object-contain" />
+                <img src="/logo.png" alt="OBD logo" className="p-1.5 object-contain w-full h-full" />
              </div>
              <span className="text-sm font-bold tracking-tight text-slate-900">© 2026 OBD SMART</span>
           </div>
           <div className="flex gap-8 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-            <Link href="/" className="hover:text-slate-900 transition-colors">Home</Link>
-            <Link href="/privacy-policy" className="hover:text-slate-900 transition-colors">Privacy Policy</Link>
-            <Link href="/signup" className="hover:text-slate-900 transition-colors">Sign Up</Link>
+            <Link to="/" className="hover:text-slate-900 transition-colors">Home</Link>
+            <Link to="/privacy-policy" className="hover:text-slate-900 transition-colors">Privacy Policy</Link>
+            <Link to="/signup" className="hover:text-slate-900 transition-colors">Sign Up</Link>
           </div>
         </div>
       </footer>

@@ -1,9 +1,5 @@
-"use client";
-
 import { useState, useEffect, useMemo } from "react";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
-import Link from "next/link";
+import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { 
   Search,
@@ -97,8 +93,8 @@ const getLogoUrl = (brandName: string) => {
   return `https://vl.imgix.net/img/${key}-logo.png`;
 };
 
-export default function SupportedCarsPage() {
-  const router = useRouter();
+export default function SupportedCars() {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState<Step>("make");
   const [makes, setMakes] = useState<Brand[]>([]);
   const [selectedMake, setSelectedMake] = useState("");
@@ -109,15 +105,13 @@ export default function SupportedCarsPage() {
   const [error, setError] = useState("");
   const [coverageData, setCoverageData] = useState<CoverageFunction[]>([]);
 
-  // Mock data for models and generations since specific APIs weren't provided
-  // In a real scenario, these would be fetched from api.fetchModels(make) etc.
   const [models, setModels] = useState<Brand[]>([]);
   const [generations, setGenerations] = useState<Brand[]>([]);
 
   useEffect(() => {
     const token = localStorage.getItem("obd_token");
     if (!token) {
-      router.push("/login?callback=/supported-cars");
+      navigate("/login?callback=/supported-cars");
       return;
     }
     fetchMakes();
@@ -127,11 +121,10 @@ export default function SupportedCarsPage() {
     setIsLoading(true);
     try {
       const data = await api.fetchMakeList();
-      // Filter out unsupported brands like Abarth and sort alphabetically
       const sortedData = [...data]
         .filter(b => {
           const name = (typeof b === 'string' ? b : b.name).toLowerCase();
-          return name !== 'abarth'; // As confirmed by user
+          return name !== 'abarth';
         })
         .sort((a, b) => {
           const nameA = (typeof a === 'string' ? a : a.name).toLowerCase();
@@ -168,7 +161,6 @@ export default function SupportedCarsPage() {
     setIsLoading(true);
     setError("");
     try {
-      // API for years is currently unavailable (404), providing mock years for UI purposes only
       const mockYears = Array.from({ length: 15 }, (_, i) => ({ name: (2024 - i).toString() }));
       setGenerations(mockYears);
       setCurrentStep("generation");
@@ -186,11 +178,9 @@ export default function SupportedCarsPage() {
     setCurrentStep("results");
     setError("");
     try {
-      // Calling fetchCoverage with ONLY the make as requested for current API setup
       const resp = await api.fetchCoverage(selectedMake);
       setCoverageData(resp.data || []);
     } catch (err: any) {
-      // Handle the case where the brand is in the list but not yet supported in coverage
       if (err.message?.includes("404") || err.status === 404) {
         setError(`Full coverage details for ${selectedMake} are currently being updated and will be available soon.`);
       } else {
@@ -230,9 +220,9 @@ export default function SupportedCarsPage() {
       {/* Header */}
       <nav className="fixed top-0 w-full z-50 glass h-20 flex items-center px-6">
         <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2.5">
+          <Link to="/" className="flex items-center gap-2.5">
             <div className="relative w-8 h-8 bg-slate-50 rounded-xl flex items-center justify-center border border-slate-100">
-               <Image src="/logo.png" alt="OBD logo" fill sizes="32px" className="p-1.5 object-contain" />
+               <img src="/logo.png" alt="OBD logo" className="p-1.5 object-contain w-full h-full" />
             </div>
             <span className="text-lg font-bold text-slate-900 tracking-tight">OBD<span className="text-brand-primary italic">SMART</span></span>
           </Link>
@@ -253,7 +243,7 @@ export default function SupportedCarsPage() {
              <button 
                onClick={() => {
                  localStorage.removeItem("obd_token");
-                 router.push("/login");
+                 navigate("/login");
                }} 
                className="btn-ghost text-xs"
              >
@@ -313,12 +303,10 @@ export default function SupportedCarsPage() {
                         className="bg-slate-50/50 p-6 rounded-2xl border border-slate-100/50 flex items-center justify-center gap-4 group transition-all hover:bg-white hover:shadow-premium hover:border-brand-primary/20 min-h-[110px]"
                       >
                         <div className="w-12 h-12 relative flex items-center justify-center">
-                          <Image 
+                          <img 
                             src={getLogoUrl(make.name)} 
                             alt={`${make.name} logo`}
-                            fill
-                            sizes="48px"
-                            className="object-contain transition-all grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 duration-500"
+                            className="w-full h-full object-contain transition-all grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 duration-500"
                             onError={(e) => {
                               const target = e.target as HTMLImageElement;
                               target.style.display = 'none';

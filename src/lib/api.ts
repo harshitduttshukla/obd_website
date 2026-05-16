@@ -16,7 +16,7 @@ export interface LoginResponse {
 }
 
 async function apiFetch(endpoint: string, options: RequestInit = {}) {
-  const token = typeof window !== 'undefined' ? localStorage.getItem('obd_token') : null;
+  const token = localStorage.getItem('obd_token');
   
   const headers = {
     'Content-Type': 'application/json',

@@ -1,8 +1,5 @@
-"use client";
-
-import Image from "next/image";
-import Link from "next/link";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Activity, 
@@ -142,7 +139,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3 group cursor-pointer">
             <div className="relative w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center border border-slate-100 group-hover:border-brand-primary/30 transition-all">
-              <Image src="/logo.png" alt="OBD logo" fill sizes="40px" className="rounded-xl object-contain" />
+              <img src="/logo.png" alt="OBD logo" className="w-full h-full rounded-xl object-contain" />
             </div>
             <div className="flex flex-col">
               <span className="text-lg font-bold tracking-tight text-slate-900 leading-none">OBD<span className="text-brand-primary italic">SMART</span></span>
@@ -151,15 +148,15 @@ export default function Home() {
           </div>
           
           <div className="hidden lg:flex items-center gap-8 text-slate-500 text-sm font-medium">
-            <Link href="/supported-cars" className="hover:text-slate-900 transition-colors">Compatibility</Link>
+            <Link to="/supported-cars" className="hover:text-slate-900 transition-colors">Compatibility</Link>
             <a href="#features" className="hover:text-slate-900 transition-colors">Features</a>
             <a href="#faq" className="hover:text-slate-900 transition-colors">FAQ</a>
             <a href="#reviews" className="hover:text-slate-900 transition-colors">Reviews</a>
           </div>
 
           <div className="flex items-center gap-4">
-            <Link href="/login" className="btn-ghost hidden sm:block">Sign in</Link>
-            <Link href="/signup" className="btn-primary px-8">
+            <Link to="/login" className="btn-ghost hidden sm:block">Sign in</Link>
+            <Link to="/signup" className="btn-primary px-8">
               Get Started
             </Link>
           </div>
@@ -206,14 +203,14 @@ export default function Home() {
                   transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
                   className="bg-white p-1.5 rounded-[2.5rem] shadow-premium-xl border border-slate-100 overflow-hidden -rotate-2"
                 >
-                  <Image src="/app_real_1.png" alt="App UI Home" width={400} height={800} className="rounded-[2.2rem]" />
+                  <img src="/app_real_1.png" alt="App UI Home" width={400} height={800} className="rounded-[2.2rem]" />
                 </motion.div>
                 <motion.div 
                   animate={{ y: [0, 15, 0] }}
                   transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
                   className="bg-white p-1.5 rounded-[2.5rem] shadow-premium-xl border border-slate-100 overflow-hidden rotate-2"
                 >
-                  <Image src="/app_real_2.png" alt="App UI Features" width={400} height={800} className="rounded-[2.2rem]" />
+                  <img src="/app_real_2.png" alt="App UI Features" width={400} height={800} className="rounded-[2.2rem]" />
                 </motion.div>
               </div>
 
@@ -248,7 +245,7 @@ export default function Home() {
                    whileHover={{ y: -5, scale: 1.05 }}
                    className="group relative h-24 bg-slate-50/50 rounded-2xl border border-slate-100/50 flex items-center justify-center p-6 transition-all hover:bg-white hover:shadow-premium hover:border-slate-200"
                  >
-                    <Image 
+                    <img 
                       src={brand.logo} 
                       alt={brand.name} 
                       width={60} 
@@ -284,7 +281,7 @@ export default function Home() {
               <h3 className="text-3xl font-bold mb-4 text-slate-900">Advanced Diagnostics</h3>
               <p className="text-slate-500 text-lg leading-relaxed font-medium">Read and clear fault codes (ECUs) across all systems. Stop guessing and start fixing.</p>
               <div className="mt-8">
-                <Link href="/supported-cars" className="btn-secondary group flex items-center gap-2 text-sm text-brand-primary border-brand-primary/20 hover:border-brand-primary/50">
+                <Link to="/supported-cars" className="btn-secondary group flex items-center gap-2 text-sm text-brand-primary border-brand-primary/20 hover:border-brand-primary/50">
                   Explore Diagnostics 
                   <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </Link>
@@ -386,7 +383,7 @@ export default function Home() {
             <div className="md:col-span-2 space-y-8">
               <div className="flex items-center gap-3">
                 <div className="relative w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center border border-slate-100 shadow-sm">
-                  <Image src="/logo.png" alt="OBD logo" fill className="p-2 object-contain" />
+                  <img src="/logo.png" alt="OBD logo" className="p-2 object-contain w-full h-full" />
                 </div>
                 <span className="text-xl font-bold tracking-tight text-slate-900 leading-none">OBD<span className="text-brand-primary italic">SMART</span></span>
               </div>
@@ -406,7 +403,7 @@ export default function Home() {
               <h4 className="text-slate-900 font-bold uppercase tracking-widest text-[10px]">Product</h4>
               <ul className="space-y-4 text-slate-400 text-sm font-medium">
                 <li><a href="#" className="hover:text-slate-900 transition-colors">App Features</a></li>
-                <li><Link href="/supported-cars" className="hover:text-slate-900 transition-colors">Compatibility</Link></li>
+                <li><Link to="/supported-cars" className="hover:text-slate-900 transition-colors">Compatibility</Link></li>
                 <li><a href="#" className="hover:text-slate-900 transition-colors">Pricing</a></li>
               </ul>
             </div>
@@ -415,8 +412,8 @@ export default function Home() {
               <h4 className="text-slate-900 font-bold uppercase tracking-widest text-[10px]">Company</h4>
               <ul className="space-y-4 text-slate-400 text-sm font-medium">
                 <li><a href="#" className="hover:text-slate-900 transition-colors">About Us</a></li>
-                <li><Link href="/terms-and-conditions" className="hover:text-slate-900 transition-colors">Terms & Conditions</Link></li>
-                <li><Link href="/privacy-policy" className="hover:text-slate-900 transition-colors">Privacy Policy</Link></li>
+                <li><Link to="/terms-and-conditions" className="hover:text-slate-900 transition-colors">Terms & Conditions</Link></li>
+                <li><Link to="/privacy-policy" className="hover:text-slate-900 transition-colors">Privacy Policy</Link></li>
               </ul>
             </div>
           </div>
@@ -435,4 +432,3 @@ export default function Home() {
     </div>
   );
 }
-

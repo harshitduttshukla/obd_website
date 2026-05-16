@@ -1,14 +1,10 @@
-"use client";
-
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import Image from "next/image";
+import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Mail, Lock, User, Loader2, ArrowRight, CheckCircle2, Eye, EyeOff } from "lucide-react";
 import { api } from "@/lib/api";
 
-export default function SignupPage() {
+export default function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,7 +12,7 @@ export default function SignupPage() {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const router = useRouter();
+  const navigate = useNavigate();
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,7 +23,7 @@ export default function SignupPage() {
       await api.signup({ name, email, password });
       setIsSuccess(true);
       setTimeout(() => {
-        router.push("/login");
+        navigate("/login");
       }, 2000);
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "Something went wrong. Please try again.";
@@ -67,9 +63,9 @@ export default function SignupPage() {
       >
         {/* Logo Section */}
         <div className="flex flex-col items-center mb-10">
-          <Link href="/" className="flex items-center gap-3 mb-6 group">
+          <Link to="/" className="flex items-center gap-3 mb-6 group">
             <div className="relative w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center border border-slate-100 group-hover:border-brand-primary/30 transition-all shadow-sm">
-              <Image src="/logo.png" alt="OBD logo" fill sizes="48px" className="p-2 object-contain" />
+              <img src="/logo.png" alt="OBD logo" className="p-2 object-contain w-full h-full" />
             </div>
             <div className="flex flex-col">
               <span className="text-xl font-bold tracking-tight text-slate-900 leading-none">OBD<span className="text-brand-primary italic">SMART</span></span>
@@ -166,13 +162,13 @@ export default function SignupPage() {
           <div className="mt-8 pt-8 border-t border-slate-50 text-center">
             <p className="text-sm text-slate-500">
               Already have an account?{" "}
-              <Link href="/login" className="text-brand-primary font-bold hover:underline">Sign In</Link>
+              <Link to="/login" className="text-brand-primary font-bold hover:underline">Sign In</Link>
             </p>
           </div>
         </div>
 
         <p className="mt-8 text-center text-[10px] text-slate-400 leading-relaxed max-w-xs mx-auto font-medium">
-          By creating an account, you agree to our <Link href="/terms-and-conditions" className="underline">Terms of Service</Link> and <Link href="/privacy-policy" className="underline">Privacy Policy</Link>.
+          By creating an account, you agree to our <Link to="/terms-and-conditions" className="underline">Terms of Service</Link> and <Link to="/privacy-policy" className="underline">Privacy Policy</Link>.
         </p>
       </motion.div>
     </div>

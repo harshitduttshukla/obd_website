@@ -1,20 +1,16 @@
-"use client";
-
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import Image from "next/image";
+import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Mail, Lock, Loader2, ArrowRight, ShieldCheck, Eye, EyeOff } from "lucide-react";
 import { api } from "@/lib/api";
 
-export default function LoginPage() {
+export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const router = useRouter();
+  const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,7 +20,7 @@ export default function LoginPage() {
     try {
       const response = await api.login({ email, encrypted_password: password });
       localStorage.setItem("obd_token", response.token);
-      router.push("/supported-cars");
+      navigate("/supported-cars");
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "Invalid credentials. Please try again.";
       setError(message);
@@ -42,9 +38,9 @@ export default function LoginPage() {
       >
         {/* Logo Section */}
         <div className="flex flex-col items-center mb-10">
-          <Link href="/" className="flex items-center gap-3 mb-6 group">
+          <Link to="/" className="flex items-center gap-3 mb-6 group">
             <div className="relative w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center border border-slate-100 group-hover:border-brand-primary/30 transition-all shadow-sm">
-              <Image src="/logo.png" alt="OBD logo" fill sizes="48px" className="p-2 object-contain" />
+              <img src="/logo.png" alt="OBD logo" className="p-2 object-contain w-full h-full" />
             </div>
             <div className="flex flex-col">
               <span className="text-xl font-bold tracking-tight text-slate-900 leading-none">OBD<span className="text-brand-primary italic">SMART</span></span>
@@ -82,7 +78,7 @@ export default function LoginPage() {
             <div className="space-y-2">
               <div className="flex justify-between items-center ml-1">
                 <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Password</label>
-                <Link href="#" className="text-[10px] font-bold text-brand-primary uppercase tracking-widest hover:opacity-80">Forgot?</Link>
+                <Link to="#" className="text-[10px] font-bold text-brand-primary uppercase tracking-widest hover:opacity-80">Forgot?</Link>
               </div>
               <div className="relative group">
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-brand-primary transition-colors" />
@@ -127,7 +123,7 @@ export default function LoginPage() {
           <div className="mt-8 pt-8 border-t border-slate-50 flex flex-col items-center gap-6">
             <p className="text-sm text-slate-500">
               Don't have an account?{" "}
-              <Link href="/signup" className="text-brand-primary font-bold hover:underline">Create one for free</Link>
+              <Link to="/signup" className="text-brand-primary font-bold hover:underline">Create one for free</Link>
             </p>
             
             <div className="flex items-center gap-2 text-slate-400">
